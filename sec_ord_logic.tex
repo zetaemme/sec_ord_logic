@@ -1,9 +1,11 @@
 \documentclass{beamer}
 
+\usepackage{amssymb}
+
 \usetheme{Boadilla}
 
-\title{Second Order Logic}
-\subtitle{Final seminar for "Logic for CS"}
+\title{Second-Order Logic}
+\subtitle{Final seminar for "Logic in Computer Science"}
 \author{Mattia Zorzan}
 \institute{University of Verona}
 \date{\today}
@@ -12,4 +14,148 @@
     \begin{frame}
         \titlepage
     \end{frame}
+
+    \begin{frame}
+        \frametitle{Outline}
+        \tableofcontents
+    \end{frame}
+
+    \section{Introduction}
+        \begin{frame}
+            \frametitle{Introduction}
+            \begin{itemize}
+                \item First-order logic allows "iteration" over the \textit{elements} of a structure
+                \item Happens thanks to \textbf{quantifiers}: $ \forall $, $ \exists $
+                    \begin{itemize}
+                        \item $ \forall x. \phi(x) \rightarrow $ "For each $ x $, $ x $ satisfies the formula $ \phi $"
+                        \item $ \exists x. \phi(x) \rightarrow $ "There exists $ x $ s.t. the formula $ \phi $ is satisfied"
+                    \end{itemize}
+                \item Limiting since we may only need to range over \textit{subsets} or "\textit{combinations}" (e.g. \textit{Cartesian product})
+            \end{itemize}
+        \end{frame}
+
+        \subsection{A recall on first-order logic}
+            \begin{frame}
+                \frametitle{A brief recall}
+                \begin{itemize}
+                    \item Second-order logic "extends" first-order logic
+                    \item Since that, let's recall the basics of first-order logic
+                    \item Two key parts:
+                        \begin{itemize}
+                            \item \textit{Syntax}: Which sequences constitute \textbf{well-formed} expressions
+                            \item \textit{Semantics}: The \textbf{meaning} behind this expressions
+                        \end{itemize}
+                \end{itemize}
+            \end{frame}
+
+            \subsubsection{Syntax}
+                \begin{frame}
+                    \frametitle{Syntax - Introduction}
+                    \begin{itemize}
+                        \item Two base types:
+                            \begin{itemize}
+                                \item \textbf{Terms}: Represents \textit{objects}
+                                \item \textbf{Formulas}: Represents \textit{predicates}
+                            \end{itemize}
+                        \item Both formed by \textit{symbol} concatenation
+                        \item All symbols together form the \textbf{alphabet} of the language
+                        \item Can divide symbols in two categories
+                            \begin{itemize}
+                                \item \textit{Logical} symbols
+                                \item \textit{Non-logical} symbols
+                            \end{itemize}
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Syntax - Logical symbols}
+                    \begin{itemize}
+                        \item \underline{Infinite} set of \textbf{variables}: $ x, y, z, \dots, x_0, x_1, \dots $ (Lowercase letters)
+                        \item \textbf{Connectives}: $ \wedge, \vee, \Rightarrow, \neg $
+                        \item \textbf{Quantifiers}: $ \forall, \exists $
+                        \item \textbf{Equality} (or \textit{Identity}): $ = $
+                        \item \textbf{Auxiliary symbols}: (; ); . (\texttt{dot}); , (\texttt{comma})
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Syntax - Non-logical symbols}
+                    \begin{itemize}
+                        \item Represents \textit{predicates} (or \textit{relations}), \textit{functions} and \textit{constants}
+                        \item $ \forall n \in \mathbb{Z^*} $ we have a set of \textit{n-ary} \textbf{predicate symbols}
+                        \[
+                            P^n_0, P^n_1, \dots \quad\quad \text{(Uppercase letters)}
+                        \] 
+                        \item $ \forall n \in \mathbb{Z^*} $ there exist \underline{infinite} \textit{n-ary} \textbf{function symbols}
+                        \[
+                            f^n_0, f^n_1, \dots \quad\quad \text{(Lowercase letters)}
+                        \]
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Syntax - Formation rules (1)}
+                    \begin{definition}[Terms formation]
+                        The set \texttt{TERM} of \textit{terms} can be inductively defined by the following rules:
+                        \begin{enumerate}
+                            \item If $ x $ is a variable, then $ x \in \texttt{TERM}$
+                            \item Any expression $ f(t_1, \dots, t_n) $, with $ t_1, \dots, t_n \in \texttt{TERM} $, is a term.\\
+                            Since that, the following statement holds
+                            \[
+                                f(t_1, \dots, t_n) \in \texttt{TERM}
+                            \]
+                        \end{enumerate}
+                    \end{definition}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Syntax - Formation rules (2)}
+                    \begin{definition}[Formulas formation]
+                        The set \texttt{FORM} of \textit{formulas} can be inductively defined by the following rules:
+                        \begin{enumerate}
+                            \item If $ P \in \texttt{PRED}\footnote{The set of \textit{predicate symbols}} $ and $ t_1, \dots, t_n \in \texttt{TERM} $, than $ P(t_1, \dots, t_n) \in \texttt{FORM} $
+                            \item If $ t_1, t_2 \in \texttt{TERM} $, than $ t_1 = t_2 \in \texttt{FORM} $
+                            \item If $ \phi \in \texttt{FORM} $, than $ \neg \phi \in \texttt{FORM} $
+                            \item If $ \phi, \psi \in \texttt{FORM} $, than $ \phi\; \square\; \psi \in \texttt{FORM} $ (with $ \square \in \{ \wedge, \vee, \Rightarrow \} $)
+                            \item If $ \phi \in \texttt{FORM} $ and $ x $ is a variable, than $ Qx.\phi \in \texttt{FORM} $ (with $ Q \in \{ \forall, \exists \} $)
+                        \end{enumerate}
+                    \end{definition}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Syntax - Variables (1)}
+                    \begin{definition}[Free and Bound variables]
+                        The \textit{free} and \textit{bound} variable occurrences in a formula are defined inductively by the following rules:
+                        \begin{enumerate}
+                            \item If $ \phi $ is \textit{atomic}, than any variable $ x \in Var(\phi) $ is \textit{free}
+                            \item $ x $ is \textit{free/bound} in $ \neg \phi $ iff $ x $ is \textit{free/bound} in $ \phi $
+                            \item $ x $ is \textit{free/bound} in $ \phi\; \square\; \psi $ iff $ x $ is \textit{free/bound} in either $ \phi $ or $ \psi $ (with $ \square \in \{ \wedge, \vee, \Rightarrow \} $)
+                            \item $ x $ is \textit{free} in $ Qy.\phi $ iff $ x $ is \textit{free} in $ \phi $ and $ y \neq x $
+                            \item $ x $ is \textit{bound} in $ Qy.\phi $ iff $ x $ is \textit{bound} in $ \phi $
+                        \end{enumerate}
+                    \end{definition}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Syntax - Variables (2)}
+                    \begin{itemize}
+                        \item More easily, a variable $ x $ is \textit{bounded} if it occurs in a quantification, $ x $ is \textit{free} otherwise
+                        \item A variable can be both \textit{free} and \textit{bounded} in the same formula, e.g.
+                        \[
+                            P(x, y) \Rightarrow \exists x.Q(x)    
+                        \]
+                        \begin{enumerate}
+                            \item In the \textbf{LHS} $ x $ is \textit{free}
+                            \item In the \textbf{RHS} $ x $ is \textit{bounded}
+                            \item Even so, the formula is still \textit{well-formed}
+                        \end{enumerate}
+                        \item A formula with no \textit{free} variables is called a \textbf{sentence}
+                    \end{itemize}
+                \end{frame}
+
+            \subsubsection{Semantics}
+                \begin{frame}
+                    \frametitle{Semantics - Introduction}
+                    % TODO
+                \end{frame}
 \end{document}
