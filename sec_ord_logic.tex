@@ -156,6 +156,26 @@
             \subsubsection{Semantics}
                 \begin{frame}
                     \frametitle{Semantics - Introduction}
-                    % TODO
+                    \begin{itemize}
+                        \item Interpretation defines the \textbf{domain} $ D $, a non-empty set of "\textit{objects}"
+                        \item Interpretation \textit{maps} functions, predicates and constants symbols into elements of $ D $
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Semantics - Structure}
+                    \begin{definition}[Structure]
+                         A \textit{structure} is formed by a \textit{domain} $ D $ and an \textit{interpretation function} $ I $ s.t.
+                         \begin{enumerate}
+                            \item Each function symbol $ f $ of arity $ n $ is assigned to a function s.t.
+                            \[
+                                I(f): D^n \to D 
+                            \]
+                            \item Each predicate symbol $ f $ of arity $ n $ is assigned to a function s.t. 
+                            \[
+                                I(P): D^n \to \{\texttt{true}, \texttt{false}\}
+                            \]
+                         \end{enumerate}
+                    \end{definition}
                 \end{frame}
 \end{document}
