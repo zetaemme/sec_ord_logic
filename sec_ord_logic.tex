@@ -1,6 +1,9 @@
 \documentclass{beamer}
 
 \usepackage{amssymb}
+\usepackage{xcolor}
+
+\definecolor{title_blue}{RGB}{51, 51, 178}
 
 \usetheme{Boadilla}
 
@@ -49,6 +52,14 @@
             \end{frame}
 
             \subsubsection{Syntax}
+                \begin{frame}
+                    \begin{center}
+                        \begin{Huge}
+                            \textcolor{title_blue}{Syntax}
+                        \end{Huge}
+                    \end{center}
+                \end{frame}
+
                 \begin{frame}
                     \frametitle{Syntax - Introduction}
                     \begin{itemize}
@@ -155,6 +166,14 @@
 
             \subsubsection{Semantics}
                 \begin{frame}
+                    \begin{center}
+                        \begin{Huge}
+                            \textcolor{title_blue}{Semantics}
+                        \end{Huge}
+                    \end{center}
+                \end{frame}
+
+                \begin{frame}
                     \frametitle{Semantics - Introduction}
                     \begin{itemize}
                         \item Interpretation defines the \textbf{domain} $ D $, a non-empty set of "\textit{objects}"
@@ -178,4 +197,60 @@
                          \end{enumerate}
                     \end{definition}
                 \end{frame}
+
+                \begin{frame}
+                    \frametitle{Semantics - Evaluation (1)}
+                    \begin{itemize}
+                        \item Given an \textit{interpretation} and an \textbf{assignment} $ \overline{a} $, it is possible to evaluate a formula
+                        \item The \textbf{evaluation} process \textit{maps} the whole formula to a \textbf{truth value}
+                        \item The \textit{assignment} $ \overline{a} $ associates each \textit{free variable} with a \textit{truth value}
+                        \item If the formula is a \textit{sentence}, $ \overline{a} $ does not affect the \textit{truth value} of the formula
+                        \item Next slides shows the evaluation steps   
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Semantics - Evaluation (2)}
+                    \begin{enumerate}
+                        \item Extend $ \overline{a} $ to all terms of the language with the following rules:
+                            \begin{itemize}
+                                \item Each variable $ x $ evaluates to $ \overline{a}(x) $
+                                \item Given $ \{ t_1, \dots, t_n \} \in \texttt{TERM} $ evaluated to $ \{ d_1, \dots, d_n \} $, a function $ f(t_1, \dots, t_n) $ evaluates to $ I(f)(d_1, \dots, d_n) $ 
+                            \end{itemize}
+                        \item Assign each formula to a \textit{truth value} with the following (inductive) rules:
+                            \begin{itemize}
+                                \item (\textit{Continues in next slides})
+                            \end{itemize} 
+                    \end{enumerate}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Semantics - Evaluation (3)}
+                    \begin{itemize}
+                        \item An \textit{atomic formula} $ P(t_1, \dots, t_n) $ is associated with a \textit{truth value}, depending on the truth of the following:
+                            \[
+                                \langle v_1, \dots, v_n \rangle \in I(P)   
+                            \]
+                            where $ v_1, \dots, v_n $ represents the evaluation of the predicate terms
+                        \item An \textit{atomic formula} $ t_1 = t_2 $ evaluates to a \textit{truth value} depending if $ v_1 = v_2 $ in $ D $, where $ v_1, v_2 $ represents the evaluation of the terms
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Semantics - Evaluation (4)}
+                    \begin{itemize}
+                        \item A formula containing \textit{logical connectives} (e.g. $ \phi\; \square\; \psi\footnote{with $ \square \in \{ \wedge, \vee, \Rightarrow \} $}, \neg \phi $) is evaluated according to the \textit{truth table} of the connective
+                        \item A formula $ \exists x.\phi $ is evaluated \texttt{true} iff exists an assignment $ \overline{a}' $ s.t. it differs from $ \overline{a} $ only for the assignment of $ x $ and $ \phi $ is evaluated \texttt{true} via the $ \overline{a}' $ assignment, \texttt{false} otherwise
+                        \item A formula $ \forall x. \phi $ is evaluated \texttt{true} iff exists an assignment $ \overline{a}' $ s.t. it differs from $ \overline{a} $ only for the assignment of $ x $ and $ \phi $ is evaluated \texttt{true} for all values in $ \overline{a}' $, \texttt{false} otherwise
+                    \end{itemize}
+                \end{frame}
+
+        \section{Second-Order Logic}
+            \begin{frame}
+                \begin{center}
+                    \begin{Huge}
+                        \textcolor{title_blue}{Second-Order Logic}
+                    \end{Huge}
+                \end{center}
+            \end{frame}
 \end{document}
