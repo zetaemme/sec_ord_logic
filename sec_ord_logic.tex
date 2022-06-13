@@ -1,6 +1,8 @@
 \documentclass{beamer}
 
 \usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{stmaryrd}
 \usepackage{xcolor}
 
 \definecolor{title_blue}{RGB}{51, 51, 178}
@@ -11,7 +13,7 @@
 \subtitle{Final seminar for "Logic in Computer Science"}
 \author{Mattia Zorzan}
 \institute{University of Verona}
-\date{\today}
+\date{Last rev. \today}
 
 \begin{document}
     \begin{frame}
@@ -164,42 +166,34 @@
                     \end{itemize}
                 \end{frame}
 
-            \subsubsection{Semantics}
+            \subsubsection{Semantic}
                 \begin{frame}
                     \begin{center}
                         \begin{Huge}
-                            \textcolor{title_blue}{Semantics}
+                            \textcolor{title_blue}{Semantic}
                         \end{Huge}
                     \end{center}
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantics - Introduction}
-                    \begin{itemize}
-                        \item Interpretation defines the \textbf{domain} $ D $, a non-empty set of "\textit{objects}"
-                        \item Interpretation \textit{maps} functions, predicates and constants symbols into elements of $ D $
-                    \end{itemize}
-                \end{frame}
-
-                \begin{frame}
-                    \frametitle{Semantics - Structure}
+                    \frametitle{Semantic - Structure and Interpretation}
                     \begin{definition}[Structure]
-                         A \textit{structure} is formed by a \textit{domain} $ D $ and an \textit{interpretation function} $ I $ s.t.
-                         \begin{enumerate}
-                            \item Each function symbol $ f $ of arity $ n $ is assigned to a function s.t.
-                            \[
-                                I(f): D^n \to D 
-                            \]
-                            \item Each predicate symbol $ f $ of arity $ n $ is assigned to a function s.t. 
-                            \[
-                                I(P): D^n \to \{\texttt{true}, \texttt{false}\}
-                            \]
-                         \end{enumerate}
+                        A \textit{structure} is formed by a \textit{domain} $ D $, $\mathbb{P} = \{ P_1, \dots, P_n \} $ predicates on $ D $, $ \mathbb{F} = \{ f_1, \dots, f_n \} $ \textbf{total} functions on $ D $ and a set $ \mathbb{C} \subseteq D $ of constants
                     \end{definition}
+                    \begin{definition}[Interpretation]
+                        Given a \textit{structure} $ \mathfrak{D} $ and a \textit{map} $ (\cdot)^{\mathfrak{D}} $ s.t.
+                        \begin{itemize}
+                            \item for all $ c $ in my language, $ (c)^\mathfrak{D} = c^\mathfrak{D} \in \mathbb{C} $
+                            \item for all \textit{k-ary} function $ f $ in my language, $ (f)^\mathfrak{D} = f^\mathfrak{D}: D^k \to D \in \mathbb{F} $
+                            \item for all \textit{n-ary} predicate $ P $ in my language, $ (P)^\mathfrak{D} = P^\mathfrak{D} \subseteq D^k \in \mathbb{P} $
+                        \end{itemize}
+                        we call $ \langle \mathfrak{D}, (\cdot)^{\mathfrak{D}} \rangle $ an \textit{interpretation}.
+                    \end{definition}
+
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantics - Evaluation (1)}
+                    \frametitle{Semantic - Evaluation (1)}
                     \begin{itemize}
                         \item Given an \textit{interpretation} and an \textbf{assignment} $ \overline{a} $, it is possible to evaluate a formula
                         \item The \textbf{evaluation} process \textit{maps} the whole formula to a \textbf{truth value}
@@ -210,12 +204,12 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantics - Evaluation (2)}
+                    \frametitle{Semantic - Evaluation (2)}
                     \begin{enumerate}
                         \item Extend $ \overline{a} $ to all terms of the language with the following rules:
                             \begin{itemize}
                                 \item Each variable $ x $ evaluates to $ \overline{a}(x) $
-                                \item Given $ \{ t_1, \dots, t_n \} \in \texttt{TERM} $ evaluated to $ \{ d_1, \dots, d_n \} $, a function $ f(t_1, \dots, t_n) $ evaluates to $ I(f)(d_1, \dots, d_n) $ 
+                                \item Given $ \{ t_1, \dots, t_n \} \in \texttt{TERM} $ evaluated to $ \{ d_1, \dots, d_n \} $, a function $ f(t_1, \dots, t_n) $ evaluates to $ (f)^{\mathfrak{D}}\footnote{Supposing we're evaluating $ f $ in a structure $ \mathfrak{D} $}(d_1, \dots, d_n) $ 
                             \end{itemize}
                         \item Assign each formula to a \textit{truth value} with the following (inductive) rules:
                             \begin{itemize}
@@ -225,11 +219,11 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantics - Evaluation (3)}
+                    \frametitle{Semantic - Evaluation (3)}
                     \begin{itemize}
                         \item An \textit{atomic formula} $ P(t_1, \dots, t_n) $ is associated with a \textit{truth value}, depending on the truth of the following:
                             \[
-                                \langle v_1, \dots, v_n \rangle \in I(P)   
+                                \langle v_1, \dots, v_n \rangle \in (P)^{\mathfrak{D}}   
                             \]
                             where $ v_1, \dots, v_n $ represents the evaluation of the predicate terms
                         \item An \textit{atomic formula} $ t_1 = t_2 $ evaluates to a \textit{truth value} depending if $ v_1 = v_2 $ in $ D $, where $ v_1, v_2 $ represents the evaluation of the terms
@@ -237,12 +231,48 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantics - Evaluation (4)}
+                    \frametitle{Semantic - Evaluation (4)}
                     \begin{itemize}
                         \item A formula containing \textit{logical connectives} (e.g. $ \phi\; \square\; \psi\footnote{with $ \square \in \{ \wedge, \vee, \Rightarrow \} $}, \neg \phi $) is evaluated according to the \textit{truth table} of the connective
                         \item A formula $ \exists x.\phi $ is evaluated \texttt{true} iff exists an assignment $ \overline{a}' $ s.t. it differs from $ \overline{a} $ only for the assignment of $ x $ and $ \phi $ is evaluated \texttt{true} via the $ \overline{a}' $ assignment, \texttt{false} otherwise
                         \item A formula $ \forall x. \phi $ is evaluated \texttt{true} iff exists an assignment $ \overline{a}' $ s.t. it differs from $ \overline{a} $ only for the assignment of $ x $ and $ \phi $ is evaluated \texttt{true} for all values in $ \overline{a}' $, \texttt{false} otherwise
                     \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Semantic - Evaluation (5)}
+                    \begin{itemize}
+                        \item Given a \textit{structure} $ \mathfrak{D} $, evaluation can be seen as a \textit{map}
+                        \[
+                            \rho_\mathfrak{D}: Var \to D
+                        \]
+                        \item We can use the $ \llbracket \cdot \rrbracket $ notation to express the evaluation of a \textit{term}
+                        \begin{definition}
+                            Given a structure $ \mathfrak{D} $ and $ \llbracket \cdot \rrbracket_{\rho_\mathfrak{D}}: \texttt{TERM} \to D $, we can define
+                            \begin{enumerate}
+                                \item $ \llbracket c \rrbracket_{\rho_\mathfrak{D}} = c^\mathfrak{D}$
+                                \item $ \llbracket x \rrbracket_{\rho_\mathfrak{D}} = \rho_\mathfrak{D}(x) $
+                                \item $ \llbracket f(t_1, \dots, t_n) \rrbracket_{\rho_\mathfrak{D}} = f^\mathfrak{D}(\llbracket t_1 \rrbracket_\mathfrak{D}, \dots, \llbracket t_n \rrbracket_\mathfrak{D}) $
+                            \end{enumerate}
+                        \end{definition}
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Semantic - Satisfiability}
+                    \begin{definition}[Satisfiability]
+                        Given a \textit{structure} $ \mathfrak{D} $ we can recursively define the \textit{satisfiability relation} $ \vDash $ as:
+                        \begin{enumerate}
+                            \item $ \rho_\mathfrak{D}\; \cancel{\vDash}\; \bot $
+                            \item $ \rho_\mathfrak{D} \vDash P(t_1, \dots, t_n) \Leftrightarrow \langle \llbracket t_1 \rrbracket_{\rho_\mathfrak{D}}, \dots, \llbracket t_n \rrbracket_{\rho_\mathfrak{D}} \rangle \in \mathbb{R} $
+                            \item $ \rho_\mathfrak{D} \vDash t_1 = t_2 \Leftrightarrow\llbracket t_1 \rrbracket_{\rho_\mathfrak{D}} = \llbracket t_2 \rrbracket_{\rho_\mathfrak{D}} $
+                            \item $ \rho_\mathfrak{D} \vDash (\phi \Rightarrow \psi) \Leftrightarrow \rho_\mathfrak{D}\; \cancel{\vDash}\; \phi \text{ o } \rho_\mathfrak{D} \vDash \psi $
+                            \item $ \rho_\mathfrak{D} \vDash (\phi \wedge \psi) \Leftrightarrow \rho_\mathfrak{D} \vDash \phi \text{ e } \rho_\mathfrak{D} \vDash \psi $
+                            \item $ \rho_\mathfrak{D} \vDash (\phi \vee \psi) \Leftrightarrow \rho_\mathfrak{D} \vDash \phi \text{ o } \rho_\mathfrak{D} \vDash \psi $
+                            \item $ \rho_\mathfrak{D} \vDash \forall x.\, \phi \Leftrightarrow \forall a \in D: \rho_\mathfrak{D}[x/a] \vDash \phi $
+                            \item $ \rho_\mathfrak{D} \vDash \exists x.\, \phi \Leftrightarrow \exists a \in D: \rho_\mathfrak{D}[x/a] \vDash \phi $
+                        \end{enumerate}
+                    \end{definition}
                 \end{frame}
 
         \section{Second-Order Logic}
@@ -252,5 +282,24 @@
                         \textcolor{title_blue}{Second-Order Logic}
                     \end{Huge}
                 \end{center}
+            \end{frame}
+
+            \begin{frame}
+                \frametitle{Syntax and Semantic}
+                \begin{itemize}
+                    \item As said before, second-order logic \textit{extends} first-order logic
+                    \item The \textit{terms} and \textit{formulas} are unchanged...
+                    \item ...but we need to redefine \textit{structures} to represent this "\textit{extension}"
+                \end{itemize}
+            \end{frame}
+
+            \begin{frame}
+                \frametitle{Structure}
+                \begin{definition}[Structure]
+                    A \textit{structure} is formed by a \textit{domain} $ D $, a set $ D^* = \langle D_n\; \vert\; n \in \mathbb{N} \rangle$ with $ D_n \subseteq \mathcal{P}(A^n) $, a set $ \mathbb{P} = \{ P_1^n, \dots, P_k^n \} $ of \textit{predicates} s.t. $ P_i^n \in D_n $ and a set of \textit{constants} $ \mathbb{C} \subseteq D $
+                \end{definition}
+                \begin{itemize}
+                    \item If $ D_n $ contains \textbf{all} n-ary predicates ($ D_n = \mathcal{P}(D^n) $) we call the structure \textit{full}
+                \end{itemize}
             \end{frame}
 \end{document}
