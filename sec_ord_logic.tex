@@ -1,6 +1,7 @@
 \documentclass{beamer}
 
 \usepackage{amssymb}
+\usepackage{bussproofs}
 \usepackage{cancel}
 \usepackage{stmaryrd}
 \usepackage{xcolor}
@@ -260,7 +261,7 @@
 
                 \begin{frame}
                     \frametitle{Semantic - Satisfiability}
-                    \begin{definition}[Satisfiability]
+                    \begin{definition}[Satisfiability relation]
                         Given a \textit{structure} $ \mathfrak{D} $ we can recursively define the \textit{satisfiability relation} $ \vDash $ as:
                         \begin{enumerate}
                             \item $ \rho_\mathfrak{D}\; \cancel{\vDash}\; \bot $
@@ -269,8 +270,8 @@
                             \item $ \rho_\mathfrak{D} \vDash (\phi \Rightarrow \psi) \Leftrightarrow \rho_\mathfrak{D}\; \cancel{\vDash}\; \phi \text{ o } \rho_\mathfrak{D} \vDash \psi $
                             \item $ \rho_\mathfrak{D} \vDash (\phi \wedge \psi) \Leftrightarrow \rho_\mathfrak{D} \vDash \phi \text{ e } \rho_\mathfrak{D} \vDash \psi $
                             \item $ \rho_\mathfrak{D} \vDash (\phi \vee \psi) \Leftrightarrow \rho_\mathfrak{D} \vDash \phi \text{ o } \rho_\mathfrak{D} \vDash \psi $
-                            \item $ \rho_\mathfrak{D} \vDash \forall x.\, \phi \Leftrightarrow \forall a \in D: \rho_\mathfrak{D}[x/a] \vDash \phi $
-                            \item $ \rho_\mathfrak{D} \vDash \exists x.\, \phi \Leftrightarrow \exists a \in D: \rho_\mathfrak{D}[x/a] \vDash \phi $
+                            \item $ \rho_\mathfrak{D} \vDash \forall x.\, \phi(x) \Leftrightarrow \forall a \in D: \rho_\mathfrak{D}[x/a] \vDash \phi $
+                            \item $ \rho_\mathfrak{D} \vDash \exists x.\, \phi(x) \Leftrightarrow \exists a \in D: \rho_\mathfrak{D}[x/a] \vDash \phi $
                         \end{enumerate}
                     \end{definition}
                 \end{frame}
@@ -295,11 +296,69 @@
 
             \begin{frame}
                 \frametitle{Structure}
-                \begin{definition}[Structure]
+                \begin{definition}[Second-Order Structure]
                     A \textit{structure} is formed by a \textit{domain} $ D $, a set $ D^* = \langle D_n\; \vert\; n \in \mathbb{N} \rangle$ with $ D_n \subseteq \mathcal{P}(A^n) $, a set $ \mathbb{P} = \{ P_1^n, \dots, P_k^n \} $ of \textit{predicates} s.t. $ P_i^n \in D_n $ and a set of \textit{constants} $ \mathbb{C} \subseteq D $
                 \end{definition}
                 \begin{itemize}
                     \item If $ D_n $ contains \textbf{all} n-ary predicates ($ D_n = \mathcal{P}(D^n) $) we call the structure \textit{full}
+                    \item Even if the \textit{elements} of a Second-Order structure are slightly different from the elements of a First-Order structure, we can use the same rules for \textbf{interpretation} and \textbf{evaluation}
+                \end{itemize}
+            \end{frame}
+            
+            \begin{frame}{Satisfiability}
+                \begin{definition}[Second-Order Satisfiability relation]
+                    Given a \textit{Second-Order structure} $ \mathfrak{D} $ and a \textit{language} $ \mathcal{L} $ that defines a name $ \overline{S} $ for all $ S \in D $, we can define the \textit{satisfiability relation} $ \vDash $ as:
+                    \begin{enumerate}
+                        \item $ \rho_\mathfrak{D}\; \cancel{\vDash}\; \bot $
+                        \item $ \rho_\mathfrak{D} \vDash \overline{S}^n(\overline{s}_1, \dots, \overline{s}_n) \Leftrightarrow \langle s_1, \dots, s_n \rangle \in S^n $\footnote{By using this notation, we can handle all types of \textit{predicates} with one rule}
+                        \item All connectives follow the same rules of First-Order Logic
+                        \item Quantification over a \textit{variable} follow the same rules of First-Order Logic
+                        \item $ \rho_\mathfrak{D} \vDash \forall P^n_i. \phi(P^n_i) \Leftrightarrow \forall S^n \in D_n: \rho_\mathfrak{D} \vDash \phi(S^n) $
+                        \item $ \rho_\mathfrak{D} \vDash \exists P^n_i. \phi(P^n_i) \Leftrightarrow \exists S^n \in D_n: \rho_\mathfrak{D} \vDash \phi(\overline{S}^n) $
+                    \end{enumerate}
+                \end{definition}
+            \end{frame}
+            
+            \begin{frame}{Natural Deduction}
+                \begin{itemize}
+                    \item We need to add a set of \textit{rules} that allows to validly \textbf{derive} the new "extended" \textit{quantifications}
+                \end{itemize}
+                \begin{columns}[c]
+                    \begin{column}{0.5\textwidth}
+                        \begin{prooftree}
+                			\AxiomC{$ \phi $}
+                			\RightLabel{$ \forall^2I $}
+                			\UnaryInfC{$ \forall P^n.\phi $}
+                		\end{prooftree}
+                		\begin{prooftree}
+                			\AxiomC{$ \phi^* $}
+                			\RightLabel{$ \exists^2I $}
+                			\UnaryInfC{$ \exists P^n.\phi $}
+                		\end{prooftree}
+                    \end{column}
+                    \hfill
+                    \begin{column}{0.5\textwidth}
+                        \begin{prooftree}
+                			\AxiomC{$ \forall P^n.\phi $}
+                			\RightLabel{$ \forall^2E $}
+                			\UnaryInfC{$ \phi^* $}
+                		\end{prooftree}
+                		\begin{prooftree}
+                		    \AxiomC{$ \exists P^n. \phi $}
+                		    \AxiomC{$ [\phi] $}
+                		    \noLine
+                		    \UnaryInfC{$ \vdots $}
+                		    \noLine
+                		    \UnaryInfC{$ \psi $}
+                			\RightLabel{$ \exists^2E $}
+                			\BinaryInfC{$ \psi $}
+                		\end{prooftree}
+                    \end{column}
+                \end{columns}
+                \vspace{.5cm}
+                \begin{itemize}
+                    \item $ \phi^* $ is $ \phi[P^n(t_1, \dots, t_n) / \psi(t_1, \dots, t_n)] $, where $ \psi $ is a generic formula
+                    \item No $ t_i $ becames \textit{bounded} during the substitution above
                 \end{itemize}
             \end{frame}
 \end{document}
