@@ -1,10 +1,24 @@
 \documentclass{beamer}
 
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{bussproofs}
 \usepackage{cancel}
 \usepackage{stmaryrd}
 \usepackage{xcolor}
+
+\newenvironment{proofidea}{
+    \renewcommand{\proofname}{Proof idea.}\proof
+}{\endproof}
+
+\newcommand{\bigdoublewedge}{
+  \mathop{
+    \mathchoice{\bigwedge\mkern-15mu\bigwedge}
+               {\bigwedge\mkern-12.5mu\bigwedge}
+               {\bigwedge\mkern-12.5mu\bigwedge}
+               {\bigwedge\mkern-11mu\bigwedge}
+    }
+}
 
 \definecolor{title_blue}{RGB}{51, 51, 178}
 
@@ -49,7 +63,7 @@
                     \item Two key parts:
                         \begin{itemize}
                             \item \textit{Syntax}: Which sequences constitute \textbf{well-formed} expressions
-                            \item \textit{Semantics}: The \textbf{meaning} behind this expressions
+                            \item \textit{Semantic}: The \textbf{meaning} behind this expressions
                         \end{itemize}
                 \end{itemize}
             \end{frame}
@@ -64,7 +78,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Syntax - Introduction}
+                    \frametitle{Introduction}
                     \begin{itemize}
                         \item Two base types:
                             \begin{itemize}
@@ -82,7 +96,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Syntax - Logical symbols}
+                    \frametitle{Logical symbols}
                     \begin{itemize}
                         \item \underline{Infinite} set of \textbf{variables}: $ x, y, z, \dots, x_0, x_1, \dots $ (Lowercase letters)
                         \item \textbf{Connectives}: $ \wedge, \vee, \Rightarrow, \neg $
@@ -93,7 +107,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Syntax - Non-logical symbols}
+                    \frametitle{Non-logical symbols}
                     \begin{itemize}
                         \item Represents \textit{predicates} (or \textit{relations}), \textit{functions} and \textit{constants}
                         \item $ \forall n \in \mathbb{Z^*} $ we have a set of \textit{n-ary} \textbf{predicate symbols}
@@ -108,7 +122,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Syntax - Formation rules (1)}
+                    \frametitle{Formation rules (1)}
                     \begin{definition}[Terms formation]
                         The set \texttt{TERM} of \textit{terms} can be inductively defined by the following rules:
                         \begin{enumerate}
@@ -123,7 +137,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Syntax - Formation rules (2)}
+                    \frametitle{Formation rules (2)}
                     \begin{definition}[Formulas formation]
                         The set \texttt{FORM} of \textit{formulas} can be inductively defined by the following rules:
                         \begin{enumerate}
@@ -137,7 +151,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Syntax - Variables (1)}
+                    \frametitle{Variables (1)}
                     \begin{definition}[Free and Bound variables]
                         The \textit{free} and \textit{bound} variable occurrences in a formula are defined inductively by the following rules:
                         \begin{enumerate}
@@ -151,7 +165,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Syntax - Variables (2)}
+                    \frametitle{Variables (2)}
                     \begin{itemize}
                         \item More easily, a variable $ x $ is \textit{bounded} if it occurs in a quantification, $ x $ is \textit{free} otherwise
                         \item A variable can be both \textit{free} and \textit{bounded} in the same formula, e.g.
@@ -177,7 +191,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantic - Structure and Interpretation}
+                    \frametitle{Structure and Interpretation}
                     \begin{definition}[Structure]
                         A \textit{structure} is formed by a \textit{domain} $ D $, $\mathbb{P} = \{ P_1, \dots, P_n \} $ predicates on $ D $, $ \mathbb{F} = \{ f_1, \dots, f_n \} $ \textbf{total} functions on $ D $ and a set $ \mathbb{C} \subseteq D $ of constants
                     \end{definition}
@@ -194,7 +208,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantic - Evaluation (1)}
+                    \frametitle{Evaluation (1)}
                     \begin{itemize}
                         \item Given an \textit{interpretation} and an \textbf{assignment} $ \overline{a} $, it is possible to evaluate a formula
                         \item The \textbf{evaluation} process \textit{maps} the whole formula to a \textbf{truth value}
@@ -205,7 +219,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantic - Evaluation (2)}
+                    \frametitle{Evaluation (2)}
                     \begin{enumerate}
                         \item Extend $ \overline{a} $ to all terms of the language with the following rules:
                             \begin{itemize}
@@ -220,7 +234,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantic - Evaluation (3)}
+                    \frametitle{Evaluation (3)}
                     \begin{itemize}
                         \item An \textit{atomic formula} $ P(t_1, \dots, t_n) $ is associated with a \textit{truth value}, depending on the truth of the following:
                             \[
@@ -232,7 +246,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantic - Evaluation (4)}
+                    \frametitle{Evaluation (4)}
                     \begin{itemize}
                         \item A formula containing \textit{logical connectives} (e.g. $ \phi\; \square\; \psi\footnote{with $ \square \in \{ \wedge, \vee, \Rightarrow \} $}, \neg \phi $) is evaluated according to the \textit{truth table} of the connective
                         \item A formula $ \exists x.\phi $ is evaluated \texttt{true} iff exists an assignment $ \overline{a}' $ s.t. it differs from $ \overline{a} $ only for the assignment of $ x $ and $ \phi $ is evaluated \texttt{true} via the $ \overline{a}' $ assignment, \texttt{false} otherwise
@@ -241,7 +255,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantic - Evaluation (5)}
+                    \frametitle{Evaluation (5)}
                     \begin{itemize}
                         \item Given a \textit{structure} $ \mathfrak{D} $, evaluation can be seen as a \textit{map}
                         \[
@@ -260,7 +274,7 @@
                 \end{frame}
 
                 \begin{frame}
-                    \frametitle{Semantic - Satisfiability}
+                    \frametitle{Satisfiability}
                     \begin{definition}[Satisfiability relation]
                         Given a \textit{structure} $ \mathfrak{D} $ we can recursively define the \textit{satisfiability relation} $ \vDash $ as:
                         \begin{enumerate}
@@ -276,6 +290,44 @@
                     \end{definition}
                 \end{frame}
 
+                \begin{frame}
+                    \frametitle{Natural Deduction}
+                    \begin{itemize}
+                        \item Just as reference, we introduce the \textit{quantification rules} for the First-Order natural deduction system
+                    \end{itemize}
+                    \begin{columns}[c]
+                        \begin{column}{.5\textwidth}
+                            \begin{prooftree}
+                                \AxiomC{$ \phi(x) $}
+                                \RightLabel{$ \forall I $}
+                                \UnaryInfC{$ \forall y. \phi(y) $}
+                            \end{prooftree}
+                            \begin{prooftree}
+                                \AxiomC{$ \phi(y) $}
+                                \RightLabel{$ \exists I $}
+                                \UnaryInfC{$ \exists x. \phi(x) $}
+                            \end{prooftree}
+                        \end{column}
+                        \begin{column}{.5\textwidth}
+                            \begin{prooftree}
+                                \AxiomC{$ \forall x. \phi(x) $}
+                                \RightLabel{$ \forall E $}
+                                \UnaryInfC{$ \phi(y) $}
+                            \end{prooftree}
+                            \begin{prooftree}
+                                \AxiomC{$ \exists y. \phi(y) $}
+                                \AxiomC{[$ \phi(x) $]}
+                                \noLine
+                                \UnaryInfC{$ \Pi $}
+                                \noLine
+                                \UnaryInfC{$ \psi $}
+                                \RightLabel{$ \exists E $}
+                                \BinaryInfC{$ \psi $}
+                            \end{prooftree}
+                        \end{column}
+                    \end{columns}
+                \end{frame}
+
         \section{Second-Order Logic}
             \begin{frame}
                 \begin{center}
@@ -286,79 +338,256 @@
             \end{frame}
 
             \begin{frame}
-                \frametitle{Syntax and Semantic}
+                \frametitle{Introduction}
                 \begin{itemize}
-                    \item As said before, second-order logic \textit{extends} first-order logic
-                    \item The \textit{terms} and \textit{formulas} are unchanged...
-                    \item ...but we need to redefine \textit{structures} to represent this "\textit{extension}"
+                    \item As said before, Second-Order Logic \textit{extends} First-Order Logic (respectively SOL and FOL from now on)
+                    \item The \textit{terms} and \textit{formulas} are pretty much the same of FOL
+                    \item To represent this "\textit{extension}" we need a brief redefinitin of what we've seen in the previous section
                 \end{itemize}
             \end{frame}
 
-            \begin{frame}
-                \frametitle{Structure}
-                \begin{definition}[Second-Order Structure]
-                    A \textit{structure} is formed by a \textit{domain} $ D $, a set $ D^* = \langle D_n\; \vert\; n \in \mathbb{N} \rangle$ with $ D_n \subseteq \mathcal{P}(A^n) $, a set $ \mathbb{P} = \{ P_1^n, \dots, P_k^n \} $ of \textit{predicates} s.t. $ P_i^n \in D_n $ and a set of \textit{constants} $ \mathbb{C} \subseteq D $
-                \end{definition}
-                \begin{itemize}
-                    \item If $ D_n $ contains \textbf{all} n-ary predicates ($ D_n = \mathcal{P}(D^n) $) we call the structure \textit{full}
-                    \item Even if the \textit{elements} of a Second-Order structure are slightly different from the elements of a First-Order structure, we can use the same rules for \textbf{interpretation} and \textbf{evaluation}
-                \end{itemize}
-            \end{frame}
+            \subsection{Syntax}
+                \begin{frame}
+                    \begin{center}
+                        \begin{Huge}
+                            \textcolor{title_blue}{Syntax}
+                        \end{Huge}
+                    \end{center}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Alphabet}
+                    \begin{itemize}
+                        \item Consists of the following symbols:
+                              \begin{itemize}
+                                \item \textbf{Individual variables}: $ x_0, x_1, \dots $
+                                \item \textbf{Individual constants}: $ c_0, c_1, \dots $
+                                \item \textbf{Predicate variables}: $ X_0^n, X_1^n, \dots $
+                                \item \textbf{Predicate constants}: $ \bot, P_0^n, P_1^n, \dots $
+                                \item \textbf{Connectives}: $ \wedge, \vee, \Rightarrow, \neg $
+                                \item \textbf{Quantifiers}: $ \forall, \exists $
+                                \item \textbf{Auxiliary symbols}: (; ); . (\texttt{dot}); , (\texttt{comma})
+                              \end{itemize}
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Formulas}
+                    \begin{itemize}
+                        \item The set \texttt{FORM} of Second-Order \textit{formulas} is inductively defined as follows
+                              \begin{itemize}
+                                \item $ X^0_i, P^0_i, \bot \in \texttt{FORM} $
+                                \item $ \forall n \in \mathbb{Z}^*. X^n(t_1, \dots, t_n) \in \texttt{FORM} $
+                                \item $ \forall n \in \mathbb{Z}^*. P^n(t_1, \dots, t_n) \in \texttt{FORM} $
+                              \end{itemize}
+                        \item \texttt{FORM} is \textit{closed} under \textbf{connectives} and \textbf{quantifiers}
+                    \end{itemize}
+                \end{frame}
+
+            \subsection{Semantic}
+                \begin{frame}
+                    \begin{center}
+                        \begin{Huge}
+                            \textcolor{title_blue}{Semantic}
+                        \end{Huge}
+                    \end{center}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Structure}
+                    \begin{definition}[Second-Order Structure]
+                        A \textit{structure} is formed by a \textit{domain} $ D $, a set $ D^* = \langle D_n\; \vert\; n \in \mathbb{N} \rangle$ with $ D_n \subseteq \mathcal{P}(A^n) $, a set $ \mathbb{R} = \{ R_1^n, \dots, R_k^n \} $ of \textit{predicates} s.t. $ R_i^n \in D_n $ and a set of \textit{constants} $ \mathbb{C} \subseteq D $
+                    \end{definition}
+                    \begin{itemize}
+                        \item If $ D_n $ contains \textbf{all} n-ary predicates ($ D_n = \mathcal{P}(D^n) $) we call the structure \textit{full}
+                        \item Even if the \textit{elements} of a Second-Order structure are slightly different from the elements of a First-Order structure, we can use the same rules for \textbf{interpretation} and \textbf{evaluation}
+                    \end{itemize}
+                \end{frame}
+                
+                \begin{frame}
+                    \frametitle{Satisfiability}
+                    \begin{definition}[Second-Order Satisfiability relation]
+                        Given a \textit{Second-Order structure} $ \mathfrak{D} $ and a \textit{language} $ \mathcal{L} $ that defines a name $ \overline{S} $ for all $ S \in D $, we can define the \textit{satisfiability relation} $ \vDash_2 $ as:
+                        \begin{enumerate}
+                            \item $ \rho_\mathfrak{D}\; \cancel{\vDash_2}\; \bot $
+                            \item $ \rho_\mathfrak{D} \vDash_2 \overline{S}^n(\overline{s}_1, \dots, \overline{s}_n) \Leftrightarrow \langle s_1, \dots, s_n \rangle \in S^n $\footnote{By using this notation, we can handle all types of \textit{predicates} with one rule}
+                            \item All connectives follow the same rules of First-Order Logic
+                            \item Quantification over a \textit{variable} follow the same rules of First-Order Logic
+                            \item $ \rho_\mathfrak{D} \vDash_2 \forall X^n_i. \phi(P^n_i) \Leftrightarrow \forall S^n \in D_n: \rho_\mathfrak{D} \vDash \phi(S^n) $
+                            \item $ \rho_\mathfrak{D} \vDash_2 \exists X^n_i. \phi(P^n_i) \Leftrightarrow \exists S^n \in D_n: \rho_\mathfrak{D} \vDash \phi(\overline{S}^n) $
+                        \end{enumerate}
+                    \end{definition}
+                \end{frame}
+                
+                \begin{frame}
+                    \frametitle{Natural Deduction}
+                    \begin{itemize}
+                        \item We need to add a set of \textit{rules} that allows to validly \textbf{derive} the new "extended" \textit{quantifications}
+                    \end{itemize}
+                    \begin{columns}[c]
+                        \begin{column}{0.5\textwidth}
+                            \begin{prooftree}
+                                \AxiomC{$ \phi $}
+                                \RightLabel{$ \forall^2I $}
+                                \UnaryInfC{$ \forall X^n.\phi $}
+                            \end{prooftree}
+                            \begin{prooftree}
+                                \AxiomC{$ \phi^* $}
+                                \RightLabel{$ \exists^2I $}
+                                \UnaryInfC{$ \exists X^n.\phi $}
+                            \end{prooftree}
+                        \end{column}
+                        \hfill
+                        \begin{column}{0.5\textwidth}
+                            \begin{prooftree}
+                                \AxiomC{$ \forall X^n.\phi $}
+                                \RightLabel{$ \forall^2E $}
+                                \UnaryInfC{$ \phi^* $}
+                            \end{prooftree}
+                            \begin{prooftree}
+                                \AxiomC{$ \exists X^n. \phi $}
+                                \AxiomC{$ [\phi] $}
+                                \noLine
+                                \UnaryInfC{$ \Pi $}
+                                \noLine
+                                \UnaryInfC{$ \psi $}
+                                \RightLabel{$ \exists^2E $}
+                                \BinaryInfC{$ \psi $}
+                            \end{prooftree}
+                        \end{column}
+                    \end{columns}
+                    \vspace{.5cm}
+                    \begin{itemize}
+                        \item $ \phi^* $ is $ \phi[X^n(t_1, \dots, t_n) / \psi(t_1, \dots, t_n)] $, where $ \psi $ is a generic formula
+                        \item No $ t_i $ becomes \textit{bounded} during the substitution above, so $ \psi $ cannot \textit{quantify} any term $ t_1, \dots, t_n $
+                    \end{itemize}
+                \end{frame}
             
-            \begin{frame}{Satisfiability}
-                \begin{definition}[Second-Order Satisfiability relation]
-                    Given a \textit{Second-Order structure} $ \mathfrak{D} $ and a \textit{language} $ \mathcal{L} $ that defines a name $ \overline{S} $ for all $ S \in D $, we can define the \textit{satisfiability relation} $ \vDash $ as:
+            \subsection{Comprehension schema}
+                \begin{frame}
+                    \frametitle{Comprehension schema (1)}
+                    \begin{itemize}
+                        \item States that "Any \underline{definable} subclass of a set is a set", formally:
+                    \end{itemize}
+                    \begin{definition}[Axiom schema of comprehension]
+                        Given a \textit{formula} $ \psi $ with $ FV[\psi] \in \{ x, t_1, \dots, t_n \} $,  and a set $ A $, the following holds
+                        \[
+                            \forall t_1, \dots, t_n. \forall A. \exists B. \forall x. (x \in B \Leftrightarrow (x \in A \wedge \psi(x, t_1, \dots, t_n, A)))    
+                        \]
+                    \end{definition}
+                    \begin{itemize}
+                        \item Since the schema holds for all $ x $ and for all $ A $, for the generality of $ \psi $, it is always possible to define a set from another set
+                        \item $ \exists^2I $ gives us this schema, since we can substitute $ P^n $ with $ \psi $, obtaining the "\textit{filtered}" subset
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Comprehension schema (2)}
+                    \begin{proofidea}
+                        Since we can derive
+                        \[
+                            \forall t_1, \dots, t_n.(\phi(t_1, \dots, t_n) \Leftrightarrow \phi(t_1, \dots, t_n))    
+                        \]
+                        the following is correct
+                        \begin{prooftree}
+                            \AxiomC{$ \forall t_1, \dots, t_n.(\phi(t_1, \dots, t_n) \Leftrightarrow \phi(t_1, \dots, t_n)) $}
+                            \RightLabel{$ \exists^2I $}
+                            \UnaryInfC{$ \exists X^n. \forall t_1, \dots, t_n.(\phi(t_1, \dots, t_n) \Leftrightarrow P^n(t_1, \dots, t_n)) $}
+                        \end{prooftree}
+                    \end{proofidea}
+                    \begin{itemize}
+                        \item \textbf{Strong result!} We can derive \textit{Second-Order quantification} the same way our deduction system derived \textit{First-Order quantification}
+                        \item Same proof concept can be applied for $ \forall^2E $, since we can define $ \forall^2 $ from $ \exists^2 $ 
+                    \end{itemize}
+                \end{frame}
+
+            \subsection{Flattening SOL}
+                \begin{frame}
+                    \frametitle{Flattening SOL (1)}
+                    \begin{itemize}
+                        \item Given the \textit{First-Order predicates} $ Ap_0, Ap_1, \dots $ s.t. $ Ap_n $ is $ (n + 1) $-ary
+                        \item $ Ap_n(X, t_1, \dots, t_n) $ can be seen as $ X^n(t_1, \dots, t_n) $, so $ Ap_0 $ is the First-Order version of $ X^0 $
+                        \item We also use some \textit{unary predicates}
+                              \begin{itemize}
+                                \item $ V \rightarrow $ "is an element"
+                                \item $ U_0 \rightarrow $ "is an 0-ary predicate"
+                                \item $ U_1 \rightarrow $ "is an 1-ary predicate"
+                                \item \textit{and so on...}
+                              \end{itemize}
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Flattening SOL (2)}
                     \begin{enumerate}
-                        \item $ \rho_\mathfrak{D}\; \cancel{\vDash}\; \bot $
-                        \item $ \rho_\mathfrak{D} \vDash \overline{S}^n(\overline{s}_1, \dots, \overline{s}_n) \Leftrightarrow \langle s_1, \dots, s_n \rangle \in S^n $\footnote{By using this notation, we can handle all types of \textit{predicates} with one rule}
-                        \item All connectives follow the same rules of First-Order Logic
-                        \item Quantification over a \textit{variable} follow the same rules of First-Order Logic
-                        \item $ \rho_\mathfrak{D} \vDash \forall P^n_i. \phi(P^n_i) \Leftrightarrow \forall S^n \in D_n: \rho_\mathfrak{D} \vDash \phi(S^n) $
-                        \item $ \rho_\mathfrak{D} \vDash \exists P^n_i. \phi(P^n_i) \Leftrightarrow \exists S^n \in D_n: \rho_\mathfrak{D} \vDash \phi(\overline{S}^n) $
+                        \item $ \forall x, y, z.(U_i(x) \wedge U_j(y) \wedge V(z) \Rightarrow x \neq u \wedge y \neq z \wedge z \neq x) $ for all $ i \neq j $
+                        \item $ \forall X, y_1, \dots, y_n.(Ap_n(X, y_1, \dots, y_n) \Rightarrow U_n(P) \wedge \bigdoublewedge_i V(y_i)) $ for $ n \geq 1 $
+                        \item $ U_0(C_0, V(C_{2^{i + 1}})) $ for $ i \geq 0 $ and $ U_n(C_{3^i5^n}) $ for $ i, n \geq 0 $
+                        \item $ \begin{aligned}
+                            \forall &z_1, \dots, z_m. \exists P.(\\
+                            &\quad U_n(X) \wedge \forall y_1, \dots, y_n. \Big (\bigdoublewedge V(y_i) \Rightarrow (\phi^* \Leftrightarrow Ap_n(X, y_1, \dots, y_n))\Big )\\
+                            ) \end{aligned} $ \\[-1\baselineskip]\quad where $ X \not\in FV[\phi^*] $, $ FV[\phi] \in \{ z_1, \dots, z_m, y_1, \dots, y_n \} $
+                        \item $ \neg Ap_0(C_0) $
                     \end{enumerate}
-                \end{definition}
-            \end{frame}
-            
-            \begin{frame}{Natural Deduction}
-                \begin{itemize}
-                    \item We need to add a set of \textit{rules} that allows to validly \textbf{derive} the new "extended" \textit{quantifications}
-                \end{itemize}
-                \begin{columns}[c]
-                    \begin{column}{0.5\textwidth}
-                        \begin{prooftree}
-                			\AxiomC{$ \phi $}
-                			\RightLabel{$ \forall^2I $}
-                			\UnaryInfC{$ \forall P^n.\phi $}
-                		\end{prooftree}
-                		\begin{prooftree}
-                			\AxiomC{$ \phi^* $}
-                			\RightLabel{$ \exists^2I $}
-                			\UnaryInfC{$ \exists P^n.\phi $}
-                		\end{prooftree}
-                    \end{column}
-                    \hfill
-                    \begin{column}{0.5\textwidth}
-                        \begin{prooftree}
-                			\AxiomC{$ \forall P^n.\phi $}
-                			\RightLabel{$ \forall^2E $}
-                			\UnaryInfC{$ \phi^* $}
-                		\end{prooftree}
-                		\begin{prooftree}
-                		    \AxiomC{$ \exists P^n. \phi $}
-                		    \AxiomC{$ [\phi] $}
-                		    \noLine
-                		    \UnaryInfC{$ \vdots $}
-                		    \noLine
-                		    \UnaryInfC{$ \psi $}
-                			\RightLabel{$ \exists^2E $}
-                			\BinaryInfC{$ \psi $}
-                		\end{prooftree}
-                    \end{column}
-                \end{columns}
-                \vspace{.5cm}
-                \begin{itemize}
-                    \item $ \phi^* $ is $ \phi[P^n(t_1, \dots, t_n) / \psi(t_1, \dots, t_n)] $, where $ \psi $ is a generic formula
-                    \item No $ t_i $ becomes \textit{bounded} during the substitution above, so $ \psi $ cannot \textit{quantify} any term $ t_1, \dots, t_n $
-                \end{itemize}
-            \end{frame}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Flattening SOL (3)}
+                    \begin{enumerate}
+                        \item The $ i $-ary and $ j $-ary predicates are pairwise disjoint and disjoint from the element
+                        \item If $ \langle X, y_1, \dots, y_n \rangle \in Ap_n $ then $ X $ is a \textit{predicate} and $ y_1, \dots, y_n $ are it's \textit{elements}
+                        \item We can have both \textit{element} and \textit{predicate} constants
+                        \item First-Order equivalent of the \textit{comprehension schema}
+                        \item The 0-ary predicate for "\textit{false}", equivalent to $ \bot $
+                    \end{enumerate}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Flattening SOL (4)}
+                    \begin{itemize}
+                        \item SOL can be translated preserving \textbf{derivability}
+                        \item We can assign symbols to the ones in SOL alphabet, in order to convert strings inductively
+                        \begin{itemize}
+                            \item $ (x_i)^* \leftarrow x_{2^{i + 1}} $
+                            \item $ (c_i)^* \leftarrow c_{2^{i + 1}} $
+                            \item $ (X^n_i)^* \leftarrow x_{3^i5^n} $
+                            \item $ (P^n_i)^* \leftarrow c_{3^i5^n} $
+                            \item $ (X^0_i)^* \leftarrow Ap_0(x_{3^i}) $
+                            \item $ (P^0_i)^* \leftarrow Ap_0(c_{3^i}) $
+                            \item $ (\bot)^* \leftarrow Ap_0(c_0) $
+                        \end{itemize}
+                        with $ i,n \geq 0 $
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Flattening SOL (5)}
+                    \begin{itemize}
+                        \item Doing this, we can "\textit{translate}" Second-Order formulas as follows:
+                              \begin{itemize}
+                                \item $ (\phi\, \square\, \psi)^* \leftarrow \phi^*\, \square\, \psi^* $
+                                \item $ (\neg \phi)^* \leftarrow \neg \phi^* $
+                                \item $ (\forall x_i. \phi(x_i))^* \leftarrow \forall x_i^*. (V(x_i^*) \Rightarrow \phi^*(x_i^*)) $
+                                \item $ (\exists x_i. \phi(x_i))^* \leftarrow \exists x_i^*. (V(x_i^*) \wedge \phi^*(x_i^*)) $
+                                \item $ (\forall X^n_i. \phi(x^n_i))^* \leftarrow \forall (x^n_i)^*. (U_n((X^n_i)^*) \Rightarrow \phi^*((X^n_i)^*)) $
+                                \item $ (\exists X^n_i. \phi(x^n_i))^* \leftarrow \exists (x^n_i)^*. (U_n((X^n_i)^*) \wedge \phi^*((X^n_i)^*)) $
+                              \end{itemize}
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Model}
+                    \begin{definition}[Second-Order model]
+                        Given a \textit{structure} $ \mathfrak{D} $, it is called a \textbf{model} of SOL if it admits (a.k.a is \textit{valid}) the \textit{comprehension schema}.\\
+                        If $ \mathfrak{D} $ is \textit{full}, then it is called a \textbf{principal} (or \textit{standard}) \textbf{model}
+                    \end{definition}
+                    \begin{itemize}
+                        \item From the definition above we get two distinct notions of "\textit{validiti}" in SOL
+                              \begin{itemize}
+                                \item \texttt{true} in all models
+                                \item \texttt{true} in all \textit{principal} models
+                              \end{itemize}
+                        \item We'll use the first one as default
+                    \end{itemize}
+                \end{frame}
 \end{document}
