@@ -569,20 +569,20 @@
                                 \item $ (\neg \phi)^* \leftarrow \neg \phi^* $
                                 \item $ (\forall x_i. \phi(x_i))^* \leftarrow \forall x_i^*. (V(x_i^*) \Rightarrow \phi^*(x_i^*)) $
                                 \item $ (\exists x_i. \phi(x_i))^* \leftarrow \exists x_i^*. (V(x_i^*) \wedge \phi^*(x_i^*)) $
-                                \item $ (\forall X^n_i. \phi(x^n_i))^* \leftarrow \forall (x^n_i)^*. (U_n((X^n_i)^*) \Rightarrow \phi^*((X^n_i)^*)) $
-                                \item $ (\exists X^n_i. \phi(x^n_i))^* \leftarrow \exists (x^n_i)^*. (U_n((X^n_i)^*) \wedge \phi^*((X^n_i)^*)) $
+                                \item $ (\forall X^n_i. \phi(X^n_i))^* \leftarrow \forall (X^n_i)^*. (U_n((X^n_i)^*) \Rightarrow \phi^*((X^n_i)^*)) $
+                                \item $ (\exists X^n_i. \phi(X^n_i))^* \leftarrow \exists (X^n_i)^*. (U_n((X^n_i)^*) \wedge \phi^*((X^n_i)^*)) $
                               \end{itemize}
                     \end{itemize}
                 \end{frame}
 
                 \begin{frame}
                     \frametitle{Model}
-                    \begin{definition}[Second-Order model]
+                    \begin{definition}[Model]
                         Given a \textit{structure} $ \mathfrak{D} $, it is called a \textbf{model} of SOL if it admits (a.k.a is \textit{valid}) the \textit{comprehension schema}.\\
                         If $ \mathfrak{D} $ is \textit{full}, then it is called a \textbf{principal} (or \textit{standard}) \textbf{model}
                     \end{definition}
                     \begin{itemize}
-                        \item From the definition above we get two distinct notions of "\textit{validiti}" in SOL
+                        \item From the definition above we get two distinct notions of "\textit{validity}" in SOL
                               \begin{itemize}
                                 \item \texttt{true} in all models
                                 \item \texttt{true} in all \textit{principal} models
