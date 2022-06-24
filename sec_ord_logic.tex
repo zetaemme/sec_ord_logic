@@ -462,6 +462,25 @@
                         \item No $ t_i $ becomes \textit{bounded} during the substitution above, so $ \psi $ cannot \textit{quantify} any term $ t_1, \dots, t_n $
                     \end{itemize}
                 \end{frame}
+
+                \begin{frame}
+                    \frametitle{Derivability}
+                    \begin{itemize}
+                        \item We need to introduce another relation that states when a \textit{formula} is \textit{derivable}
+                    \end{itemize}
+                    \begin{definition}[Second-Order Derivability relation]
+                        Given a \textit{deduction system} and a set of \textit{formulas} $ \Gamma $, we can say $ \Gamma \vdash_2 \phi $ (read as "\textit{Gamma derives phi}") iff starting from $ \Gamma $ we can derive $ \phi $ using the \textit{deduction system}.\\
+                        Formally, if exists a derivation
+                        \begin{prooftree}
+                            \AxiomC{$ \Pi $}
+                            \UnaryInfC{$ \phi $}
+                        \end{prooftree}
+                        s.t. $ Hp[\Pi] \subseteq \Gamma $
+                    \end{definition}
+                    \begin{itemize}
+                        \item Same as in \textit{First-Order Logic}
+                    \end{itemize}
+                \end{frame}
             
             \subsection{Comprehension schema}
                 \begin{frame}
@@ -572,6 +591,7 @@
                                 \item $ (\forall X^n_i. \phi(X^n_i))^* \leftarrow \forall (X^n_i)^*. (U_n((X^n_i)^*) \Rightarrow \phi^*((X^n_i)^*)) $
                                 \item $ (\exists X^n_i. \phi(X^n_i))^* \leftarrow \exists (X^n_i)^*. (U_n((X^n_i)^*) \wedge \phi^*((X^n_i)^*)) $
                               \end{itemize}
+                        \item This further strengthens the result of \textit{derivability}, since we can state that $ \vdash\, \Rightarrow\, \vdash_2 $
                     \end{itemize}
                 \end{frame}
 
@@ -589,5 +609,33 @@
                               \end{itemize}
                         \item We'll use the first one as default
                     \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Soundness (1)}
+                    \begin{itemize}
+                        \item Given the \textit{derivability relation} $ \vdash_2 $, it is easy to prove the \textbf{Soundness} result
+                        \item Just recall that by \textit{flattening} we just proved that we can translate each \textit{Second-Order Formula} into a \textit{First-Order formula}
+                        \item Since the result of derivability \textit{holds} for SOL the same way it holds for FOL, we can state the following
+                    \end{itemize}
+                    \begin{corollary}
+                        Given a formula $ \phi $, $ \vdash \phi \Rightarrow\; \vdash_2 \phi $ since we never added a $ \bot I $ derivation in extending FOL \textit{Natural Deduction}, so $ \cancel{\vdash_2}\, \bot $
+                    \end{corollary}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Soundness (2)}
+                    \begin{theorem}[Soundness]
+                        $ \Gamma \vdash_2 \phi \Rightarrow \Gamma \vDash_2 \phi $
+                    \end{theorem}
+                    \begin{proofidea}
+                        From the \textit{corollary} seen in tre previous slide $ \cancel{\vdash_2}\, \bot $, so $ \Gamma \vdash_2 \phi \Rightarrow \phi \neq \bot $.\\
+                        If $ \Gamma $ is formed by any \textit{Second-Order formula}, we can say that $ \Gamma \vDash_2 \phi $ since we can find a derivation\footnote{With a little \textit{abuse of notation} we use $ \Pi $ to represent any subtree that can be used to derive $ \phi $}
+                        \begin{prooftree}
+                            \AxiomC{$ \Pi $}
+                            \UnaryInfC{$ \phi $}
+                        \end{prooftree}
+                        s.t. $ Hp[\Pi] \subseteq \Gamma $ and $ Hp[\Pi] \vDash_2 \phi $.
+                    \end{proofidea}
                 \end{frame}
 \end{document}
