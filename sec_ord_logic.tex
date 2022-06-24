@@ -619,7 +619,12 @@
                         \item Since the result of derivability \textit{holds} for SOL the same way it holds for FOL, we can state the following
                     \end{itemize}
                     \begin{corollary}
-                        Given a formula $ \phi $, $ \vdash \phi \Rightarrow\; \vdash_2 \phi $ since we never added a $ \bot I $ derivation in extending FOL \textit{Natural Deduction}, so $ \cancel{\vdash_2}\, \bot $
+                        Given a formula $ \phi $, $ \vdash \phi \Rightarrow\; \vdash_2 \phi $ since we never added a derivation
+                        \begin{prooftree}
+                            \AxiomC{$ \Pi $}
+                            \UnaryInfC{$ \bot $}
+                        \end{prooftree}
+                        in extending FOL \textit{Natural Deduction}, so $ \cancel{\vdash_2}\, \bot $
                     \end{corollary}
                 \end{frame}
 
@@ -630,12 +635,19 @@
                     \end{theorem}
                     \begin{proofidea}
                         From the \textit{corollary} seen in tre previous slide $ \cancel{\vdash_2}\, \bot $, so $ \Gamma \vdash_2 \phi \Rightarrow \phi \neq \bot $.\\
-                        If $ \Gamma $ is formed by any \textit{Second-Order formula}, we can say that $ \Gamma \vDash_2 \phi $ since we can find a derivation\footnote{With a little \textit{abuse of notation} we use $ \Pi $ to represent any subtree that can be used to derive $ \phi $}
+                        If $ \Gamma $ is formed by any \textit{Second-Order formula}, we can say that $ \Gamma \vDash_2 \phi $ since we can find a derivation
                         \begin{prooftree}
                             \AxiomC{$ \Pi $}
                             \UnaryInfC{$ \phi $}
                         \end{prooftree}
                         s.t. $ Hp[\Pi] \subseteq \Gamma $ and $ Hp[\Pi] \vDash_2 \phi $.
                     \end{proofidea}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Completeness}
+                    \begin{itemize}
+                        \item It's not as easy to prove \textbf{Completeness}
+                    \end{itemize}
                 \end{frame}
 \end{document}
