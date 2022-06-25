@@ -20,7 +20,12 @@
     }
 }
 
+\newtheorem{property}{Property}
+\newtheorem{proposition}{Proposition}
+
 \definecolor{title_blue}{RGB}{51, 51, 178}
+
+\setbeamertemplate{navigation symbols}{}
 
 \usetheme{Boadilla}
 
@@ -611,6 +616,8 @@
                     \end{itemize}
                 \end{frame}
 
+            \subsection{Soundness and Completeness}
+
                 \begin{frame}
                     \frametitle{Soundness (1)}
                     \begin{itemize}
@@ -647,7 +654,97 @@
                 \begin{frame}
                     \frametitle{Completeness}
                     \begin{itemize}
-                        \item It's not as easy to prove \textbf{Completeness}
+                        \item With the same assumptions as before, we can also prove \textbf{Completeness}
                     \end{itemize}
+                    \begin{theorem}[Completeness]
+                        $ \Gamma \vDash_2 \phi \Rightarrow \Gamma \vdash_2 \phi $
+                    \end{theorem}
+                    \begin{proofidea}
+                        Immediate consequence of flattening SOL, since $ \Gamma \vDash \phi \Rightarrow \Gamma \vdash \phi $ in FOL.
+                    \end{proofidea}
+                    \begin{itemize}
+                        \item By combining the two previous results, we obtain
+                    \end{itemize}
+                    \begin{proposition}
+                        $ \Gamma \vDash_2 \phi \Leftrightarrow \Gamma \vdash_2 \phi $
+                    \end{proposition}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{TODO}
+                    \begin{itemize}
+                        \item SOL can define every connective in term of $ \forall $ and $ \Rightarrow $
+                    \end{itemize}
+                    \begin{theorem}
+                        \begin{enumerate}
+                            \item $ \vdash_2 \bot \Leftrightarrow \forall X^0. X^0 $
+                            \item $ \vdash_2 (\phi \wedge \psi) \Leftrightarrow \forall X^0. ((\phi \Rightarrow (\psi \Rightarrow X^0)) \Rightarrow X^0) $
+                            \item $ \vdash_2 (\phi \vee \psi) \Leftrightarrow \forall X^0. (((\phi \Rightarrow X^0) \wedge (\psi \Rightarrow X^0)) \Rightarrow X^0) $
+                            \item $ \vdash_2 (\exists x.\phi) \Leftrightarrow \forall X^0. (\forall x. (\phi \Rightarrow X^0) \Rightarrow X^0) $
+                            \item $ \vdash_2 (\exists X^n.\phi) \Leftrightarrow \forall X^0. (\forall X^n. (\phi \Rightarrow X^0) \Rightarrow X^0) $
+                        \end{enumerate}
+                    \end{theorem}
+
+                    % TODO Add proof
+                \end{frame}
+
+            \subsection{Identity}
+                \begin{frame}
+                    \frametitle{Identity (1)}
+                    \begin{itemize}
+                        \item The German philosopher \textbf{Gottfried Wilhelm Leibniz} introduced the \textit{Leibniz's law}, also called \textit{identity of indiscernibles} or \textit{Leibniz identity}
+                    \end{itemize}
+                    \begin{definition}[Leibniz identity]
+                        Given two \textit{individuals} $ x $ and $ y $, we can state that $ x = y $ iff they have exactly the same properties.\\
+                        Formally
+                        \[
+                            \forall X. (X(x) \Leftrightarrow X(y))    
+                        \] 
+                    \end{definition}
+                    \begin{itemize}
+                        \item Since we can now \textit{quantify} properties, SOL can easily represent this concept
+                    \end{itemize}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Identity (2)}
+                    \begin{theorem}
+                        $ \vdash_2 (x = y) \Leftrightarrow x = y $ w.r.t. \textit{Leibniz's law}
+                    \end{theorem}
+                    \begin{itemize}
+                        \item To prove the above theorem more easily, we'll first need to prove the following properties
+                    \end{itemize}
+                    \begin{property}
+                        \begin{enumerate}
+                            \item[$ I_{\,1} $] $ \vdash_2 (x = x) $
+                            \item[$ I_{\,2} $] $ \vdash_2 (x = y) \Rightarrow y = x $
+                            \item[$ I_{\,3} $] $ \vdash_2 (x = y) \Rightarrow (y = z \Rightarrow x = z) $
+                            \item[$ I_{\,4} $] $ \vdash_2 (x = y) \Rightarrow (\phi(x) \Rightarrow \phi(y)) $
+                        \end{enumerate}
+                    \end{property}
+                \end{frame}
+
+                \begin{frame}
+                    \frametitle{Identity (3)}
+                    \begin{proofidea}[Proof idea of $ I_{\,1}, I_{\,2}, I_{\,3}, I_{\,4} $]
+                        $  I_{\,1},  I_{\,2} $ and $  I_{\,3} $ are obvious, since they states \textit{identity}, \textit{commutativity} and \textit{transitivity}.\\
+                        Since we can derive $ (x = y) $, if the \textbf{LHS} makes a generic \textit{formula} $ \phi $ \texttt{true}, then \textbf{RHS} will make that same \textit{formula} \texttt{true}. If we cannot derive $ (x = y) $ the implication is obviously \texttt{true}.
+                    \end{proofidea}
+                    \begin{proof}
+                        \begin{itemize}
+                            \item [$ \Rightarrow $] Immediately follows by $ I_{\,4} $.
+                            \item [$ \Leftarrow $] We can derive $ (x = y) $ like this
+                                \begin{prooftree}
+                                    \AxiomC{$ x = x $}
+                                    \AxiomC{$ \forall X. (X(x) \Leftrightarrow X(y)) $}
+                                    \RightLabel{$ \forall^2 E $}
+                                    \UnaryInfC{$ x = x \Leftrightarrow x = y $}
+                                    % TODO Add correct label
+                                    \RightLabel{(TODO)}
+                                    \BinaryInfC{$ x = y $}
+                                \end{prooftree}
+                                where we substituted $ (x = z) $ with $ X(z) $.
+                        \end{itemize}
+                    \end{proof}
                 \end{frame}
 \end{document}
