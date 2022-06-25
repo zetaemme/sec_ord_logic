@@ -671,6 +671,7 @@
                 \end{frame}
 
                 \begin{frame}
+                    % TODO Consider to skip this part
                     \frametitle{TODO}
                     \begin{itemize}
                         \item SOL can define every connective in term of $ \forall $ and $ \Rightarrow $
@@ -737,14 +738,48 @@
                                 \begin{prooftree}
                                     \AxiomC{$ x = x $}
                                     \AxiomC{$ \forall X. (X(x) \Leftrightarrow X(y)) $}
-                                    \RightLabel{$ \forall^2 E $}
+                                    \RightLabel{($ \forall^2 E $)}
                                     \UnaryInfC{$ x = x \Leftrightarrow x = y $}
-                                    % TODO Add correct label
-                                    \RightLabel{(TODO)}
+                                    \RightLabel{($ \Rightarrow E $)}
                                     \BinaryInfC{$ x = y $}
                                 \end{prooftree}
-                                where we substituted $ (x = z) $ with $ X(z) $.
                         \end{itemize}
                     \end{proof}
+                \end{frame}
+
+            \subsection{Second-Order arithmetic}
+                \begin{frame}
+                    \frametitle{Second-Order arithmetic}
+                    \begin{itemize}
+                        \item Consider SOL with \textit{First-Order identity} and $ S $ predicate constant for the \textbf{successor relation}
+                        \item We can add the following axioms:
+                            \begin{enumerate}
+                                \item $ \exists !x. \forall y. \neg S(y, x) $
+                                \item $ \forall x. \exists !y. S(x, y) $
+                                \item $ \forall x, y, z . (S(x, z) \wedge S(y, z) \Rightarrow x = y) $
+                                \item $ \forall X.(X(0) \wedge \forall x. (X(x) \Rightarrow X(x^+)) \Rightarrow \forall X. X(x)) $
+                            \end{enumerate}
+                        \item The latter holds under the following axioms:
+                            \begin{enumerate}[I]
+                                \item $ \forall y. \neg S(y, 0) $
+                                \item $ \forall \texttt{n}. S(\texttt{n}, \texttt{n + 1}) $
+                                \item $ y = x^+ \Leftrightarrow S(x, y) $
+                            \end{enumerate}
+                    \end{itemize}
+                \end{frame}
+
+            \subsection{Axiom of Extensionality}
+                \begin{frame}
+                    \frametitle{Axiom of Extensionality}
+                    \begin{itemize}
+                        \item Let's define the concept of \textit{identity} for Second-Order terms
+                    \end{itemize}
+                    \begin{definition}
+                        Given arguments $ t_1, \dots, t_n $, we can state that two \textit{predicates} $ X_1^n $ and $ X_2^n $ are \textit{identical} iff $ X_1^n(t_1, \dots, t_n) \Leftrightarrow X_2^n(t_1, \dots, t_n) $.\\
+                        Formally
+                        \[
+                            \forall \{ t_1, \dots, t_n \}. (X_1^n(t_1, \dots, t_n) \Leftrightarrow X_2^n(t_1, \dots, t_n)) \Leftrightarrow X_1^n = X_2^n
+                        \]
+                    \end{definition}
                 \end{frame}
 \end{document}
