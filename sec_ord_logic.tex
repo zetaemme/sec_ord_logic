@@ -382,8 +382,8 @@
                         \item The set \texttt{FORM} of Second-Order \textit{formulas} is inductively defined as follows
                               \begin{itemize}
                                 \item $ X^0_i, P^0_i, \bot \in \texttt{FORM} $
-                                \item $ \forall n \in \mathbb{Z}^*. X^n(t_1, \dots, t_n) \in \texttt{FORM} $
-                                \item $ \forall n \in \mathbb{Z}^*. P^n(t_1, \dots, t_n) \in \texttt{FORM} $
+                                \item $ \forall n \in \mathbb{Z}^+. X^n(t_1, \dots, t_n) \in \texttt{FORM} $
+                                \item $ \forall n \in \mathbb{Z}^+. P^n(t_1, \dots, t_n) \in \texttt{FORM} $
                               \end{itemize}
                         \item \texttt{FORM} is \textit{closed} under \textbf{connectives} and \textbf{quantifiers}
                     \end{itemize}
@@ -401,7 +401,7 @@
                 \begin{frame}
                     \frametitle{Structure}
                     \begin{definition}[Second-Order Structure]
-                        A \textit{Second-Order structure} is formed by a \textit{domain} $ D $, a set $ D^* = \langle D_n\; \vert\; n \in \mathbb{N} \rangle$ with $ D_n \subseteq \mathcal{P}(A^n) $, a set $ \mathbb{R} = \{ R_1^n, \dots, R_k^n \} $ of \textit{predicates} s.t. $ R_i^n \in D_n $ and a set of \textit{constants} $ \mathbb{C} \subseteq D $
+                        A \textit{Second-Order structure} is formed by a \textit{domain} $ D $, a set $ D^* = \langle D_n\; \vert\; n \in \mathbb{N} \rangle$ with $ D_n \subseteq \mathcal{P}(D^n) $, a set $ \mathbb{R} = \{ R_1^n, \dots, R_k^n \} $ of \textit{predicates} s.t. $ R_i^n \in D_n $ and a set of \textit{constants} $ \mathbb{C} \subseteq D $
                     \end{definition}
                     \begin{itemize}
                         \item If $ D_n $ contains \textbf{all} n-ary predicates ($ D_n = \mathcal{P}(D^n) $) we call the structure \textit{full}
@@ -418,8 +418,8 @@
                             \item $ \rho_{\mathfrak{D}_2} \vDash_2 \overline{S}^n(\overline{s}_1, \dots, \overline{s}_n) \Leftrightarrow \langle s_1, \dots, s_n \rangle \in S^n $\footnote{By using this notation, we can handle all types of \textit{predicates} with one rule}
                             \item All connectives follow the same rules of First-Order Logic
                             \item Quantification over a \textit{variable} follow the same rules of First-Order Logic
-                            \item $ \rho_{\mathfrak{D}_2} \vDash_2 \forall X^n_i. \phi(P^n_i) \Leftrightarrow \forall S^n \in D_n: \rho_{\mathfrak{D}_2} \vDash_2 \phi(S^n) $
-                            \item $ \rho_{\mathfrak{D}_2} \vDash_2 \exists X^n_i. \phi(P^n_i) \Leftrightarrow \exists S^n \in D_n: \rho_{\mathfrak{D}_2} \vDash_2 \phi(\overline{S}^n) $
+                            \item $ \rho_{\mathfrak{D}_2} \vDash_2 \forall X^n_i. \phi(X^n_i) \Leftrightarrow \forall S^n \in D_n: \rho_{\mathfrak{D}_2} \vDash_2 \phi(S^n) $
+                            \item $ \rho_{\mathfrak{D}_2} \vDash_2 \exists X^n_i. \phi(X^n_i) \Leftrightarrow \exists S^n \in D_n: \rho_{\mathfrak{D}_2} \vDash_2 \phi(\overline{S}^n) $
                         \end{enumerate}
                     \end{definition}
                 \end{frame}
