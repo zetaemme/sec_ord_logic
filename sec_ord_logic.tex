@@ -49,13 +49,13 @@
         \begin{frame}
             \frametitle{Introduction}
             \begin{itemize}
-                \item First-order logic allows "iteration" over the \textit{elements} of a structure
+                \item First-order logic allows ``iteration" over the \textit{elements} of a structure
                 \item Happens thanks to \textbf{quantifiers}: $ \forall $, $ \exists $
                     \begin{itemize}
-                        \item $ \forall x. \phi(x) \rightarrow $ "For each $ x $, $ x $ satisfies the formula $ \phi $"
-                        \item $ \exists x. \phi(x) \rightarrow $ "There exists $ x $ s.t. the formula $ \phi $ is satisfied"
+                        \item $ \forall x. \phi(x) \rightarrow $ ``For each $ x $, $ x $ satisfies the formula $ \phi $"
+                        \item $ \exists x. \phi(x) \rightarrow $ ``There exists $ x $ s.t. the formula $ \phi $ is satisfied"
                     \end{itemize}
-                \item Limiting since we may only need to range over \textit{subsets} or "\textit{combinations}" (e.g. \textit{Cartesian product})
+                \item Limiting since we may only need to range over \textit{subsets} or ``\textit{combinations}" (e.g. \textit{Cartesian product})
             \end{itemize}
         \end{frame}
 
@@ -63,7 +63,7 @@
             \begin{frame}
                 \frametitle{A brief recall}
                 \begin{itemize}
-                    \item Second-order logic "extends" first-order logic
+                    \item Second-order logic ``extends" first-order logic
                     \item Since that, let's recall the basics of first-order logic
                     \item Two key parts:
                         \begin{itemize}
@@ -351,7 +351,7 @@
                 \begin{itemize}
                     \item As said before, Second-Order Logic \textit{extends} First-Order Logic (respectively SOL and FOL from now on)
                     \item The \textit{terms} and \textit{formulas} are pretty much the same of FOL
-                    \item To represent this "\textit{extension}" we need a brief redefinition of what we've seen in the previous section
+                    \item To represent this ``\textit{extension}" we need a brief redefinition of what we've seen in the previous section
                 \end{itemize}
             \end{frame}
 
@@ -433,7 +433,7 @@
                 \begin{frame}
                     \frametitle{Natural Deduction}
                     \begin{itemize}
-                        \item We need to add a set of \textit{rules} that allows to validly \textbf{derive} the new "extended" \textit{quantifications}
+                        \item We need to add a set of \textit{rules} that allows to validly \textbf{derive} the new ``extended" \textit{quantifications}
                     \end{itemize}
                     \begin{columns}[c]
                         \begin{column}{0.5\textwidth}
@@ -492,12 +492,11 @@
                         \item Same as in \textit{First-Order Logic}
                     \end{itemize}
                 \end{frame}
-            
-            \subsection{Comprehension schema}
+
                 \begin{frame}
-                    \frametitle{Comprehension schema (1)}
+                    \frametitle{Comprehension schema}
                     \begin{itemize}
-                        \item States that "Any \underline{definable} subclass of a set is a set", formally:
+                        \item States that ``Any \underline{definable} subclass of a set is a set", formally:
                     \end{itemize}
                     \begin{definition}[Axiom schema of comprehension]
                         Given a \textit{formula} $ \psi $ with $ FV[\psi] \in \{ x, t_1, \dots, t_n \} $,  and a set $ A $, the following holds
@@ -511,25 +510,6 @@
                     \end{itemize}
                 \end{frame}
 
-                \begin{frame}
-                    \frametitle{Comprehension schema (2)}
-                    \begin{proofidea}
-                        Since we can derive
-                        \[
-                            \forall t_1, \dots, t_n.(\phi(t_1, \dots, t_n) \Leftrightarrow \phi(t_1, \dots, t_n))    
-                        \]
-                        the following is correct
-                        \begin{prooftree}
-                            \AxiomC{$ \forall t_1, \dots, t_n.(\phi(t_1, \dots, t_n) \Leftrightarrow \phi(t_1, \dots, t_n)) $}
-                            \RightLabel{$ \exists^2I $}
-                            \UnaryInfC{$ \exists X^n. \forall t_1, \dots, t_n.(\phi(t_1, \dots, t_n) \Leftrightarrow X^n(t_1, \dots, t_n)) $}
-                        \end{prooftree}
-                    \end{proofidea}
-                    \begin{itemize}
-                        \item Same proof concept can be applied for $ \forall^2E $, since we can define $ \forall^2 $ from $ \exists^2 $ 
-                    \end{itemize}
-                \end{frame}
-
             \subsection{Flattening SOL}
                 \begin{frame}
                     \frametitle{Flattening SOL (1)}
@@ -538,9 +518,9 @@
                         \item $ Ap_n(X, t_1, \dots, t_n) $ can be seen as $ X^n(t_1, \dots, t_n) $, so $ Ap_0 $ is the First-Order version of $ X^0 $
                         \item We also use some \textit{unary predicates}
                               \begin{itemize}
-                                \item $ V \rightarrow $ "is an element"
-                                \item $ U_0 \rightarrow $ "is an 0-ary predicate"
-                                \item $ U_1 \rightarrow $ "is an 1-ary predicate"
+                                \item $ V \rightarrow $ ``is an element"
+                                \item $ U_0 \rightarrow $ ``is a 0-ary predicate"
+                                \item $ U_1 \rightarrow $ ``is a 1-ary predicate"
                                 \item \textit{and so on...}
                               \end{itemize}
                     \end{itemize}
@@ -548,6 +528,8 @@
 
                 \begin{frame}
                     \frametitle{Flattening SOL (2)}
+                    The following axioms embody the \textit{characteristic properties} of SOL
+                    \vspace*{.5cm}
                     \begin{enumerate}
                         \item $ \forall x, y, z.(U_i(x) \wedge U_j(y) \wedge V(z) \Rightarrow x \neq y \wedge y \neq z \wedge z \neq x) $ for all $ i \neq j $
                         \item $ \forall X, y_1, \dots, y_n.(Ap_n(X, y_1, \dots, y_n) \Rightarrow U_n(X) \wedge \bigdoublewedge_i V(y_i)) $ for $ n \geq 1 $
@@ -567,7 +549,7 @@
                         \item If $ \langle X, y_1, \dots, y_n \rangle \in Ap_n $ then $ X $ is a \textit{predicate} and $ y_1, \dots, y_n $ are it's \textit{elements}
                         \item We can have both \textit{element} and \textit{predicate} constants
                         \item First-Order equivalent of the \textit{comprehension schema}
-                        \item The 0-ary predicate for "\textit{false}", equivalent to $ \bot $
+                        \item The 0-ary predicate for ``\texttt{false}", equivalent to $ \bot $
                     \end{enumerate}
                 \end{frame}
 
@@ -592,7 +574,7 @@
                 \begin{frame}
                     \frametitle{Flattening SOL (5)}
                     \begin{itemize}
-                        \item Doing this, we can "\textit{translate}" Second-Order formulas as follows:
+                        \item Doing this, we can ``\textit{translate}" Second-Order formulas as follows:
                               \begin{itemize}
                                 \item $ (\phi\, \square\, \psi)^* \leftarrow \phi^*\, \square\, \psi^* $
                                 \item $ (\neg \phi)^* \leftarrow \neg \phi^* $
@@ -602,22 +584,6 @@
                                 \item $ (\exists X^n_i. \phi(X^n_i))^* \leftarrow \exists (X^n_i)^*. (U_n((X^n_i)^*) \wedge \phi^*((X^n_i)^*)) $
                               \end{itemize}
                         \item This further strengthens the result of \textit{derivability}, since we can state that $ \vdash\, \Rightarrow\, \vdash_2 $
-                    \end{itemize}
-                \end{frame}
-
-                \begin{frame}
-                    \frametitle{Model}
-                    \begin{definition}[Model]
-                        Given a \textit{structure} $ \mathfrak{D}_2 $, it is called a \textbf{model} of SOL if it admits (a.k.a is \textit{valid}) the \textit{comprehension schema}.\\
-                        If $ \mathfrak{D}_2 $ is \textit{full}, then it is called a \textbf{principal} (or \textit{standard}) \textbf{model}
-                    \end{definition}
-                    \begin{itemize}
-                        \item From the definition above we get two distinct notions of "\textit{validity}" in SOL
-                              \begin{itemize}
-                                \item \texttt{true} in all models
-                                \item \texttt{true} in all \textit{principal} models
-                              \end{itemize}
-                        \item We'll use the first one as default
                     \end{itemize}
                 \end{frame}
 
@@ -646,6 +612,7 @@
                         $ \Gamma \vdash_2 \phi \Rightarrow \Gamma \vDash_2 \phi $
                     \end{theorem}
                     \begin{proofidea}
+                        Proof by induction on derivations.\\
                         From the \textit{corollary} seen in tre previous slide $ \cancel{\vdash_2}\, \bot $, so $ \Gamma \vdash_2 \phi \Rightarrow \phi \neq \bot $.\\
                         If $ \Gamma $ is formed by any \textit{Second-Order formula}, we can say that $ \Gamma \vDash_2 \phi $ since we can find a derivation
                         \begin{prooftree}
@@ -665,7 +632,7 @@
                         $ \Gamma \vDash_2 \phi \Rightarrow \Gamma \vdash_2 \phi $
                     \end{theorem}
                     \begin{proofidea}
-                        Immediate consequence of flattening SOL, since $ \Gamma \vDash \phi \Rightarrow \Gamma \vdash \phi $ in FOL.
+                        Immediate consequence of flattening SOL and the \textit{translation procedure} defined above, since $ \Gamma \vDash \phi \Rightarrow \Gamma \vdash \phi $ in FOL.
                     \end{proofidea}
                     \begin{itemize}
                         \item By combining the two previous results, we obtain
@@ -699,7 +666,7 @@
                         $ \vdash_2 (x = y) \Leftrightarrow x = y $ w.r.t. \textit{Leibniz's law}
                     \end{theorem}
                     \begin{itemize}
-                        \item To prove the above theorem more easily, we'll first need to prove the following properties
+                        \item To prove the above theorem more easily, we'll need the following properties
                     \end{itemize}
                     \begin{property}
                         \begin{enumerate}
@@ -713,10 +680,6 @@
 
                 \begin{frame}
                     \frametitle{Identity (3)}
-                    \begin{proofidea}[Proof idea of $ I_{\,1}, I_{\,2}, I_{\,3}, I_{\,4} $]
-                        $  I_{\,1},  I_{\,2} $ and $  I_{\,3} $ are obvious, since they states \textit{identity}, \textit{commutativity} and \textit{transitivity}.\\
-                        Since we can derive $ (x = y) $, if the \textbf{LHS} makes a generic \textit{formula} $ \phi $ \texttt{true}, then \textbf{RHS} will make that same \textit{formula} \texttt{true}. If we cannot derive $ (x = y) $ the implication is obviously \texttt{true}.
-                    \end{proofidea}
                     \begin{proof}
                         \begin{itemize}
                             \item [$ \Rightarrow $] Immediately follows by $ I_{\,4} $.
@@ -767,6 +730,9 @@
                             \forall \{ t_1, \dots, t_n \}. (X_1^n(t_1, \dots, t_n) \Leftrightarrow X_2^n(t_1, \dots, t_n)) \Leftrightarrow X_1^n = X_2^n
                         \]
                     \end{definition}
+                    \begin{itemize}
+                        \item It allows \textit{definition by abstraction} (e.g. ``\textit{The set of all $ x $, such that...}")
+                    \end{itemize}
                 \end{frame}
 
                 \begin{frame}
