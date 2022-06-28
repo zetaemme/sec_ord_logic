@@ -549,11 +549,11 @@
                 \begin{frame}
                     \frametitle{Flattening SOL (2)}
                     \begin{enumerate}
-                        \item $ \forall x, y, z.(U_i(x) \wedge U_j(y) \wedge V(z) \Rightarrow x \neq u \wedge y \neq z \wedge z \neq x) $ for all $ i \neq j $
-                        \item $ \forall X, y_1, \dots, y_n.(Ap_n(X, y_1, \dots, y_n) \Rightarrow U_n(P) \wedge \bigdoublewedge_i V(y_i)) $ for $ n \geq 1 $
+                        \item $ \forall x, y, z.(U_i(x) \wedge U_j(y) \wedge V(z) \Rightarrow x \neq y \wedge y \neq z \wedge z \neq x) $ for all $ i \neq j $
+                        \item $ \forall X, y_1, \dots, y_n.(Ap_n(X, y_1, \dots, y_n) \Rightarrow U_n(X) \wedge \bigdoublewedge_i V(y_i)) $ for $ n \geq 1 $
                         \item $ U_0(C_0, V(C_{2^{i + 1}})) $ for $ i \geq 0 $ and $ U_n(C_{3^i5^n}) $ for $ i, n \geq 0 $
                         \item $ \begin{aligned}
-                            \forall &z_1, \dots, z_m. \exists P.(\\
+                            \forall &z_1, \dots, z_m. \exists X.(\\
                             &\quad U_n(X) \wedge \forall y_1, \dots, y_n. \Big (\bigdoublewedge V(y_i) \Rightarrow (\phi^* \Leftrightarrow Ap_n(X, y_1, \dots, y_n))\Big )\\
                             ) \end{aligned} $ \\[-1\baselineskip]\quad where $ X \not\in FV[\phi^*] $, $ FV[\phi] \in \{ z_1, \dots, z_m, y_1, \dots, y_n \} $
                         \item $ \neg Ap_0(C_0) $
@@ -673,25 +673,6 @@
                     \begin{proposition}
                         $ \Gamma \vDash_2 \phi \Leftrightarrow \Gamma \vdash_2 \phi $
                     \end{proposition}
-                \end{frame}
-
-                \begin{frame}
-                    % TODO Consider to skip this part
-                    \frametitle{TODO}
-                    \begin{itemize}
-                        \item SOL can define every connective in term of $ \forall $ and $ \Rightarrow $
-                    \end{itemize}
-                    \begin{theorem}
-                        \begin{enumerate}
-                            \item $ \vdash_2 \bot \Leftrightarrow \forall X^0. X^0 $
-                            \item $ \vdash_2 (\phi \wedge \psi) \Leftrightarrow \forall X^0. ((\phi \Rightarrow (\psi \Rightarrow X^0)) \Rightarrow X^0) $
-                            \item $ \vdash_2 (\phi \vee \psi) \Leftrightarrow \forall X^0. (((\phi \Rightarrow X^0) \wedge (\psi \Rightarrow X^0)) \Rightarrow X^0) $
-                            \item $ \vdash_2 (\exists x.\phi) \Leftrightarrow \forall X^0. (\forall x. (\phi \Rightarrow X^0) \Rightarrow X^0) $
-                            \item $ \vdash_2 (\exists X^n.\phi) \Leftrightarrow \forall X^0. (\forall X^n. (\phi \Rightarrow X^0) \Rightarrow X^0) $
-                        \end{enumerate}
-                    \end{theorem}
-
-                    % TODO Add proof
                 \end{frame}
 
             \subsection{Identity}
