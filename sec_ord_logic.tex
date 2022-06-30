@@ -148,7 +148,7 @@
                     \begin{definition}[Formulas formation]
                         The set \texttt{FORM} of \textit{formulas} can be inductively defined by the following rules:
                         \begin{enumerate}
-                            \item If $ P \in \texttt{PRED}\footnote{The set of \textit{predicate symbols}} $ and $ t_1, \dots, t_n \in \texttt{TERM} $, than $ P(t_1, \dots, t_n) \in \texttt{FORM} $
+                            \item If $ P $ is a \textit{predicate} and $ t_1, \dots, t_n \in \texttt{TERM} $, than $ P(t_1, \dots, t_n) \in \texttt{FORM} $
                             \item If $ t_1, t_2 \in \texttt{TERM} $, than $ (t_1 = t_2) \in \texttt{FORM} $
                             \item If $ \phi \in \texttt{FORM} $, than $ \neg \phi \in \texttt{FORM} $
                             \item If $ \phi, \psi \in \texttt{FORM} $, than $ (\phi\; \square\; \psi) \in \texttt{FORM} $ (with $ \square \in \{ \wedge, \vee, \Rightarrow \} $)
@@ -537,7 +537,7 @@
                         \item $ \begin{aligned}
                             \forall &z_1, \dots, z_m. \exists X.(\\
                             &\quad U_n(X) \wedge \forall y_1, \dots, y_n. \Big (\bigdoublewedge V(y_i) \Rightarrow (\phi^* \Leftrightarrow Ap_n(X, y_1, \dots, y_n))\Big )\\
-                            ) \end{aligned} $ \\[-1\baselineskip]\quad where $ X \not\in FV[\phi^*] $, $ FV[\phi] \in \{ z_1, \dots, z_m, y_1, \dots, y_n \} $
+                            ) \end{aligned} $ \\[-1\baselineskip]\quad where $ X \not\in FV[\phi^*] $, $ FV[\phi] \subseteq \{ z_1, \dots, z_m, y_1, \dots, y_n \} $
                         \item $ \neg Ap_0(C_0) $
                     \end{enumerate}
                 \end{frame}
